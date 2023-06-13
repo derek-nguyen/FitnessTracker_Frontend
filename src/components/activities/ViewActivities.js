@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllActivities } from "../../api";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+// import AccordionSummary from "@material-ui/core/AccordionSummary";
+
 
 const ViewActivities = (props) => {
     const [activities, setActivities] = useState([]);
@@ -15,19 +19,25 @@ const ViewActivities = (props) => {
         }
     }, [])
 
-    console.log(activities)
+    // console.log(activities[0])
 
     return (
         <div>
-            <h1>HELLO</h1>
+            <h1>Activities</h1>
             <div>{activities.map((activity, index) => {
-                <div>
-                    <div>{activity}</div>
-                    <div>{activity.id}</div>
-                    <div>{activity.name}</div>
-                    <div>{activity.description}</div>
-                </div>
-            })}</div>
+                return (
+                    <Accordion>
+                        <AccordionSummary>
+                            <div>
+                                <div>{activity.id}</div>
+                                <div>{activity.name}</div>
+                                <div>{activity.description}</div>
+                            </div>
+                        </AccordionSummary>
+                    </Accordion>
+                )
+            })}
+            </div>
         </div>
     )
 }
