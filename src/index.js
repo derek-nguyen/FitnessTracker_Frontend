@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Home } from './components'
+import {
+    Home,
+    ViewActivities
+} from './components'
 
 
 const App = () => {
@@ -10,12 +13,10 @@ const App = () => {
         <div className='app'>
             <Router>
                 <Switch>
-                    {/* <Route path='/activities'
-                    render={(props) => (
+                    <Route path='/activities' render={(props) => (
                         <ViewActivities />
-                    )}
-                >
-                </Route> */}
+                    )}>
+                    </Route>
                     <Route path='/' render={(props) => (
                         <Home />
                     )}>
