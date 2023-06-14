@@ -15,3 +15,18 @@ export async function fetchAllActivities() {
         throw error;
     }
 }
+
+export async function fetchAllRoutines() {
+    try {
+        const res = await fetch(`${BASE_URL}/api/routines`, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+
+        const result = await res.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}

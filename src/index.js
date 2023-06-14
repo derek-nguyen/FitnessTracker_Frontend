@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 import {
     Home,
-    ViewActivities
+    ViewActivities,
+    ViewRoutines
 } from './components'
 
 
@@ -24,6 +25,10 @@ const App = () => {
                 <Switch>
                     <Route exact path='/' render={(props) => (
                         <Home />
+                    )}>
+                    </Route>
+                    <Route path='/routines' render={(props) => (
+                        <ViewRoutines />
                     )}>
                     </Route>
                     <Route path='/activities' render={(props) => (
