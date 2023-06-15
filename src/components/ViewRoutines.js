@@ -30,7 +30,7 @@ const ViewRoutines = () => {
                                 <div>{routine.name}</div>
                                 <div>{routine.goal}</div>
                                 <div>
-                                    {routine.activities > 1 ? (
+                                    {routine.activities.length > 1 ? (
                                         <>
                                             <h3>Activities for Routine</h3>
                                             {routine.activities.map((activity, idx) => (
