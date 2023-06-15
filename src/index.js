@@ -21,7 +21,7 @@ const App = () => {
                 <Link to='/register'>Register</Link>
                 <Link to='/login'>Login</Link>
             </nav>
-            <Router>
+            {/* <Router> Router is already wrapped for App */}
                 <Switch>
                     <Route exact path='/' render={(props) => (
                         <Home />
@@ -36,7 +36,7 @@ const App = () => {
                     )}>
                     </Route>
                 </Switch>
-            </Router>
+            {/* </Router> */}
         </div>
     )
 }
@@ -44,8 +44,8 @@ const App = () => {
 ReactDOM.render(
     <Router>
         <App />
-    </Router>,
-    document.getElementById("app")
+    </Router>
+    , document.getElementById("app")
 )
 
 

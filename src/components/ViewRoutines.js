@@ -26,9 +26,22 @@ const ViewRoutines = () => {
                         <AccordionSummary>
                             <div>
                                 <div>{routine.id}</div>
-                                <div>{routine.creatorId}</div>
+                                <div>{routine.creatorName}</div>
                                 <div>{routine.name}</div>
                                 <div>{routine.goal}</div>
+                                <div>
+                                    {routine.activities > 1 ? (
+                                        <>
+                                            <h3>Activities for Routine</h3>
+                                            {routine.activities.map((activity, idx) => (
+                                                <div><span>{idx + 1}: </span>{activity.name}</div>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        <span></span>
+                                    )
+                                    }
+                                </div>
                             </div>
                         </AccordionSummary>
                     </Accordion>
