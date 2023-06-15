@@ -19,6 +19,26 @@ export async function registerUser(username, password) {
   }
 }
 
+export async function login(username, password) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchAllActivities() {
   try {
     const res = await fetch(`${BASE_URL}/api/activities`, {

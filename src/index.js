@@ -7,6 +7,7 @@ import {
   Header,
   ViewActivities,
   ViewRoutines,
+  Login,
   Register,
 } from "./components";
 
