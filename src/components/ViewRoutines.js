@@ -34,7 +34,14 @@ const ViewRoutines = () => {
                                         <>
                                             <h3>Activities for Routine</h3>
                                             {routine.activities.map((activity, idx) => (
-                                                <div><span>{idx + 1}: </span>{activity.name}</div>
+                                                <>
+                                                    <div><span>{idx + 1}: </span>{activity.name}</div>
+                                                    <div></div>
+                                                    <ul>
+                                                        <li><span>Duration: </span>{activity.duration}</li>
+                                                        <li><span>count: </span>{activity.count}</li>
+                                                    </ul>
+                                                </>
                                             ))}
                                         </>
                                     ) : (
