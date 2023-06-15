@@ -19,8 +19,8 @@ const Header = ({ setUsername, setPassword, loggedIn, setLoggedIn }) => {
   };
 
   return (
-    <AppBar>
-      <Toolbar>
+    <AppBar position="absolute">
+      <Toolbar className="header">
         Fitness Tracker
         <Link to="/">
           <Button color="inherit">Home</Button>
