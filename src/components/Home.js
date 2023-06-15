@@ -1,15 +1,14 @@
-import React from 'react';
-import { Fragment } from 'react';
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Fragment } from "react";
+import { Link } from "react-router-dom";
 
-const Home = ({}) => {
-    return (
-        <>  
-            <div>
-                <div><h1>This is fitness tracker</h1></div>
-            </div>
-        </>
-    )
-}
+const Home = ({ username, loggedIn }) => {
+  return (
+    <div className="home">
+      <h1>Ftiness Tracker</h1>
+      {loggedIn ? <h2>Welcome, {username}</h2> : null}
+    </div>
+  );
+};
 
 export default Home;

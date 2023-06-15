@@ -31,9 +31,14 @@ const Header = ({ setUsername, setPassword, loggedIn, setLoggedIn }) => {
         <Link to="/activities">
           <Button color="inherit">Activities</Button>
         </Link>
+        {!loggedIn ? null : (
+          <Link to="/myroutines">
+            <Button color="inherit">MY ROUTINES</Button>
+          </Link>
+        )}
         {loggedIn ? null : (
           <Link to="/login">
-            <Button color="inherit">LOGIN</Button>
+            <Button color="inherit">Login</Button>
           </Link>
         )}
         {!loggedIn ? null : (
