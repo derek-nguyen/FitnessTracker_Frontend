@@ -9,6 +9,7 @@ import {
   ViewRoutines,
   Login,
   Register,
+  MyRoutines,
 } from "./components";
 
 const App = () => {
