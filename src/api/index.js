@@ -69,3 +69,19 @@ export async function fetchAllRoutines() {
     throw error;
   }
 }
+
+export async function fetchAllPublicRoutines() {
+  try {
+    const response = await fetch(`${BASE_URL}/api/routines`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

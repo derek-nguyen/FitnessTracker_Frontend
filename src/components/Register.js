@@ -37,7 +37,7 @@ const Register = ({
   };
 
   if (loggedIn) {
-    return <div>You are already logged in</div>;
+    return <div className="register">You are already logged in</div>;
   } else {
     return (
       <div className="register">

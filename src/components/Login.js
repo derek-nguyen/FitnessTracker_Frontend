@@ -1,5 +1,6 @@
 import React from "react";
 
+import swal from "sweetalert";
 import { login } from "../api";
 import { Link } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const Login = ({
       if (data.error) {
         setUsername("");
         setPassword("");
+        swal(data.message);
       } else {
         const token = data.token;
         localStorage.setItem(`Token`, token);
@@ -28,6 +30,7 @@ const Login = ({
         setLoggedIn(true);
         setUsername(username);
         localStorage.setItem(`Username`, username);
+        swal(data.message);
         history.push("/");
       }
     } catch (error) {
