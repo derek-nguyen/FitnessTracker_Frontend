@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../api";
+import swal from "sweetalert";
 
 const Register = ({
   username,
@@ -16,10 +17,10 @@ const Register = ({
     event.preventDefault();
     try {
       const data = await registerUser(username, password);
-      console.log(data);
       if (data.error) {
         setUsername("");
         setPassword("");
+        swal(data.message);
       } else {
         const token = data.token;
         localStorage.setItem(`Token`, token);
@@ -27,6 +28,7 @@ const Register = ({
         setLoggedIn(true);
         setUsername(username);
         localStorage.setItem(`Username`, username);
+        swal(data.message);
         history.push("/");
       }
     } catch (error) {
@@ -44,7 +46,7 @@ const Register = ({
             value={username}
             type="text"
             placeholder="Username"
-            onChange={(event) => setUserName(event.target.value)}
+            onChange={(event) => setUsername(event.target.value)}
             required
           />
           <input
