@@ -27,6 +27,8 @@ const CreateRoutine = (props) => {
         if (createdRoutine) {
             setRoutineName('');
             setRoutineGoal('');
+            window.location.reload();
+            
         }
     }
 

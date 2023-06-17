@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { fetchUserPublicRoutines } from "../../api";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
+} from "@mui/material";
+
 import CreateRoutine from "./CreateRoutine"
+import EditRoutine from "./EditRoutine";
 
 const MyRoutines = (props) => {
   const [myRoutines, setMyRoutines] = useState([]);
-  const [routineName, setRoutineName] = useState('');
-  const [routineGoal, setRoutineGoal] = useState('');
   const { userToken, loggedIn, username } = props;
-
-
-  function handleSubmit() {
-    return 'hi'
-  }
 
   useEffect(() => {
     try {
@@ -26,7 +23,7 @@ const MyRoutines = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, [myRoutines]);
+  }, []);
 
   return (
     <>
@@ -35,13 +32,14 @@ const MyRoutines = (props) => {
         <h1>My Routines</h1>
         {myRoutines.map((routine, index) => {
           return (
-            <Accordion>
+            <Accordion key={routine.id}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <div>{routine.name}</div>
               </AccordionSummary>
               <AccordionDetails>
                 <div>
-                  Goal: {routine.goal}
+                  <div>Goal: {routine.goal}</div>
+                  <EditRoutine routineId={routine.id} />
                   {routine.activities.length > 0 ? (
                     <div>
                       <div>Activities</div>
