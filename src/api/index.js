@@ -89,9 +89,9 @@ export async function fetchAllPublicRoutines() {
 export async function createRoutine(username, token, routineObj) {
   try {
     const response = await fetch(`${BASE_URL}/api/routines`, {
-      method:"POST",
+      method: "POST",
       headers: {
-        "Content-Type":"application/json",
+        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(routineObj)
@@ -100,6 +100,22 @@ export async function createRoutine(username, token, routineObj) {
     const result = await response.json();
     console.log(result);
     return result
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function fetchUserPublicRoutines(username, token) {
+  try {
+    const request = await fetch(`${BASE_URL}/api/users/${username}/routines`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    const result = request.json();
+    console.log(result);
+    return result;
   } catch (error) {
     throw error;
   }
