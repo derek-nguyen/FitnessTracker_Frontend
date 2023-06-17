@@ -26,7 +26,7 @@ const MyRoutines = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [myRoutines]);
 
   return (
     <>
