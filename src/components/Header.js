@@ -19,7 +19,7 @@ const Header = ({ setUsername, setPassword, loggedIn, setLoggedIn }) => {
   };
 
   return (
-    <AppBar position="absolute">
+    <AppBar position="sticky"> 
       <Toolbar className="header">
         Fitness Tracker
         <Link to="/">

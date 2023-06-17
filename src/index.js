@@ -40,6 +40,13 @@ const App = () => {
       />
       <Switch>
         <Route
+          exact
+          path="/"
+          render={(props) => (
+            <Home {...props} username={username} loggedIn={loggedIn} />
+          )}
+        />
+        <Route
           path="/login"
           render={(props) => (
             <Login
@@ -105,12 +112,7 @@ const App = () => {
           )}
         />
 
-        <Route
-          path="/"
-          render={(props) => (
-            <Home {...props} username={username} loggedIn={loggedIn} />
-          )}
-        />
+
       </Switch>
       {/* </Router> */}
     </div>

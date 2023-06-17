@@ -63,3 +63,7 @@
   justify-content: center;
   align-items: center;
 }
+
+.css-jz7rmq-MuiPaper-root-MuiAppBar-root {
+  position: none;
+}

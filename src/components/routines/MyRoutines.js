@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchAllPublicRoutines } from "../../api";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
 
 const MyRoutines = (props) => {
   const [routines, setRoutines] = useState([]);
@@ -15,6 +17,12 @@ const MyRoutines = (props) => {
       console.log(error);
     }
   }, []);
+
+  return (
+    <>
+      <div>My Routines</div>
+    </>
+  )
 };
 
 export default MyRoutines;
