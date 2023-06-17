@@ -19,7 +19,7 @@ const ViewRoutines = () => {
   }, []);
 
   return (
-    <div>
+    <div className="view">
       <h1>Routines</h1>
       <div className="view">
         {routines.map((routine, index) => {
@@ -58,42 +58,6 @@ const ViewRoutines = () => {
                   ) : null}
                 </div>
               </AccordionDetails>
-              {/* <AccordionSummary>
-                <div>
-                  <div>{routine.id}</div>
-                  <div>{routine.creatorName}</div>
-                  <div>{routine.name}</div>
-                  <div>{routine.goal}</div>
-                  <div>
-                    {routine.activities.length > 1 ? (
-                      <>
-                        <h3>Activities for Routine</h3>
-                        {routine.activities.map((activity, idx) => (
-                          <>
-                            <div>
-                              <span>{idx + 1}: </span>
-                              {activity.name}
-                            </div>
-                            <div></div>
-                            <ul>
-                              <li>
-                                <span>Duration: </span>
-                                {activity.duration}
-                              </li>
-                              <li>
-                                <span>count: </span>
-                                {activity.count}
-                              </li>
-                            </ul>
-                          </>
-                        ))}
-                      </>
-                    ) : (
-                      <span></span>
-                    )}
-                  </div>
-                </div>
-              </AccordionSummary> */}
             </Accordion>
           );
         })}
