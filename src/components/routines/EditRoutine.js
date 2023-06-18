@@ -16,7 +16,7 @@ const EditRoutine = (props) => {
     const { routineId, userToken } = props;
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
-    const [routineIsPublic, setRoutineIsPublic] = useState(null);
+    const [routineIsPublic, setRoutineIsPublic] = useState(false);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -34,8 +34,27 @@ const EditRoutine = (props) => {
         p: 4,
     };
 
-    function handleEdit(routineId, userToken, routineObj) {
-        alert(`You've selected routine ID: ${routineId},${userToken}`)
+    async function handleEdit(event) {
+        event.preventDefault();
+
+        const routineObj = {
+            "name": routineName,
+            "goal": routineGoal,
+            "isPublic": routineIsPublic
+        }
+
+        console.log(routineObj);
+
+        try {
+            const editedRoutine = await editRoutine(userToken, routineId, routineObj);
+
+            if (editedRoutine) {
+                window.location.reload();
+            }
+
+        } catch (error) {
+            throw error;
+        }
     }
 
     return (
@@ -55,12 +74,13 @@ const EditRoutine = (props) => {
                 <Box sx={style}>
                     <Container maxWidth="sm">
                         <h1>Edit Routine</h1>
-                        <form onSubmit={() => handleEdit(routineId, userToken)}>
+                        <form onSubmit={handleEdit}>
                             <TextField
                                 label="New Routine Name"
                                 value={routineName}
                                 onChange={(e) => setRoutineName(e.target.value)}
                                 fullWidth
+                                required
                             >
                             </TextField>
                             <TextField
@@ -68,11 +88,13 @@ const EditRoutine = (props) => {
                                 value={routineGoal}
                                 onChange={(e) => setRoutineGoal(e.target.value)}
                                 fullWidth
+                                required
                             >
                             </TextField>
                             <FormControl fullWidth>
                                 <InputLabel>Is Public</InputLabel>
                                 <Select
+                                    required
                                     value={routineIsPublic}
                                     onChange={(e) => setRoutineIsPublic(e.target.value)}
                                 >

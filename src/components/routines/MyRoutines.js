@@ -17,13 +17,15 @@ const MyRoutines = (props) => {
   useEffect(() => {
     try {
       Promise.all([fetchUserPublicRoutines(username, userToken)]).then(([data]) => {
-        console.log(data);
+        // console.log(data);
         setMyRoutines(data);
       });
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  console.log(myRoutines)
 
   return (
     <>
@@ -39,7 +41,7 @@ const MyRoutines = (props) => {
               <AccordionDetails>
                 <div>
                   <div>Goal: {routine.goal}</div>
-                  <div>isPublic: {routine.isPublic}</div>
+                  <div>isPublic: {routine.isPublic.toString()}</div>
                   <EditRoutine routineId={routine.id} userToken={userToken}/>
                   {routine.activities.length > 0 ? (
                     <div>
