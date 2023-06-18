@@ -36,7 +36,7 @@ const ViewRoutines = () => {
                   {routine.activities.length > 0 ? (
                     <div>
                       <br />
-                      <h3>Activities</h3>
+                      <h3>Routine Activities</h3>
                       {routine.activities.map((activity, idx) => (
                         <ActivityItem activity={activity} idx={idx}/>
                       ))}
