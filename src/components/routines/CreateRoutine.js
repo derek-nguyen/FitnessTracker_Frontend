@@ -44,6 +44,9 @@ const CreateRoutine = (props) => {
     } catch (error) {
       console.error(error);
       swal("Failed to Add Routine");
+    } finally {
+      routineData.name = "";
+      routineData.goal = "";
     }
     /*
     const routineObj = {
@@ -67,12 +70,14 @@ const CreateRoutine = (props) => {
         <h2>Add New Routine</h2>
         <form>
           <input
+            value={routineData.name}
             type="text"
             name="name"
             placeholder="Name"
             onChange={handleChange}
           />
           <input
+            value={routineData.goal}
             type="text"
             name="goal"
             placeholder="Goal"

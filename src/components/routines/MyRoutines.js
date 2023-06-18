@@ -14,7 +14,6 @@ const MyRoutines = (props) => {
   useEffect(() => {
     try {
       Promise.all([fetchAllPublicRoutines()]).then(([data]) => {
-        console.log(data);
         setMyRoutines(data);
       });
     } catch (error) {
