@@ -9,6 +9,7 @@ import {
 
 import CreateRoutine from "./CreateRoutine"
 import EditRoutine from "./EditRoutine";
+import DeleteRoutine from "./DeleteRoutine";
 
 const MyRoutines = (props) => {
   const [myRoutines, setMyRoutines] = useState([]);
@@ -25,7 +26,7 @@ const MyRoutines = (props) => {
     }
   }, []);
 
-  console.log(myRoutines)
+  // console.log(myRoutines)
 
   return (
     <>
@@ -42,7 +43,10 @@ const MyRoutines = (props) => {
                 <div>
                   <div>Goal: {routine.goal}</div>
                   <div>isPublic: {routine.isPublic.toString()}</div>
-                  <EditRoutine routineId={routine.id} userToken={userToken}/>
+                  <div className="routine-button-container">
+                    <EditRoutine routineId={routine.id} userToken={userToken} />
+                    <DeleteRoutine routineId={routine.id} userToken={userToken}/>
+                  </div>
                   {routine.activities.length > 0 ? (
                     <div>
                       <div>Activities</div>

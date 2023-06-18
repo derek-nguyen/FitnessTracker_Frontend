@@ -64,6 +64,8 @@
   align-items: center;
 }
 
-.css-jz7rmq-MuiPaper-root-MuiAppBar-root {
-  position: none;
+.routine-button-container {
+  display: flex;
 }
+
+

@@ -107,13 +107,13 @@ export async function createRoutine(username, token, routineObj) {
 
 export async function fetchUserPublicRoutines(username, token) {
   try {
-    const request = await fetch(`${BASE_URL}/api/users/${username}/routines`, {
+    const response = await fetch(`${BASE_URL}/api/users/${username}/routines`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
       }
     })
-    const result = await request.json();
+    const result = await response.json();
     console.log(result);
     return result;
   } catch (error) {
@@ -123,7 +123,7 @@ export async function fetchUserPublicRoutines(username, token) {
 
 export async function editRoutine(token, routineId, routineObj) {
   try {
-    const request = await fetch(`${BASE_URL}/api/routines/${routineId}`, {
+    const response = await fetch(`${BASE_URL}/api/routines/${routineId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,24 @@ export async function editRoutine(token, routineId, routineObj) {
       },
       body: JSON.stringify(routineObj)
     })
-    const result = await request.json();
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteRoutine(token, routineId) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/routines/${routineId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+    const result = await response.json();
     console.log(result);
     return result;
   } catch (error) {
