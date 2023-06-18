@@ -39,7 +39,8 @@ const MyRoutines = (props) => {
               <AccordionDetails>
                 <div>
                   <div>Goal: {routine.goal}</div>
-                  <EditRoutine routineId={routine.id} />
+                  <div>isPublic: {routine.isPublic}</div>
+                  <EditRoutine routineId={routine.id} userToken={userToken}/>
                   {routine.activities.length > 0 ? (
                     <div>
                       <div>Activities</div>

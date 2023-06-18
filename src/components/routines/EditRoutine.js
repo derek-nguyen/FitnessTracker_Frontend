@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import {
     Button,
     Box,
-    Typography,
-    Modal
+    Modal,
+    Container,
+    TextField,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl
 } from "@mui/material";
+import { editRoutine } from '../../api'
 
 const EditRoutine = (props) => {
-    const { routineId } = props;
+    const { routineId, userToken } = props;
+    const [routineName, setRoutineName] = useState('');
+    const [routineGoal, setRoutineGoal] = useState('');
+    const [routineIsPublic, setRoutineIsPublic] = useState(null);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -20,13 +29,13 @@ const EditRoutine = (props) => {
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '0px solid #000',
         boxShadow: 24,
         p: 4,
-      };
+    };
 
-    function handleEdit(routineId) {
-        alert(`You've selected routine ID: ${routineId}`)
+    function handleEdit(routineId, userToken, routineObj) {
+        alert(`You've selected routine ID: ${routineId},${userToken}`)
     }
 
     return (
@@ -35,7 +44,7 @@ const EditRoutine = (props) => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                onClick={() => handleEdit(routineId)}
+                onClick={handleOpen}
             > Edit </Button>
             <Modal
                 open={open}
@@ -44,12 +53,38 @@ const EditRoutine = (props) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                    <Container maxWidth="sm">
+                        <h1>Edit Routine</h1>
+                        <form onSubmit={() => handleEdit(routineId, userToken)}>
+                            <TextField
+                                label="New Routine Name"
+                                value={routineName}
+                                onChange={(e) => setRoutineName(e.target.value)}
+                                fullWidth
+                            >
+                            </TextField>
+                            <TextField
+                                label="New Routine Goal"
+                                value={routineGoal}
+                                onChange={(e) => setRoutineGoal(e.target.value)}
+                                fullWidth
+                            >
+                            </TextField>
+                            <FormControl fullWidth>
+                                <InputLabel>Is Public</InputLabel>
+                                <Select
+                                    value={routineIsPublic}
+                                    onChange={(e) => setRoutineIsPublic(e.target.value)}
+                                >
+                                    <MenuItem value={true}>True</MenuItem>
+                                    <MenuItem value={false}>False</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <div>
+                                <Button type="submit" variant="contained" color="primary">Submit</Button>
+                            </div>
+                        </form>
+                    </Container>
                 </Box>
             </Modal>
 

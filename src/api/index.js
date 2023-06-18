@@ -113,7 +113,25 @@ export async function fetchUserPublicRoutines(username, token) {
         "Authorization": `Bearer ${token}`
       }
     })
-    const result = request.json();
+    const result = await request.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function editRoutine(token, routineId, routineObj) {
+  try {
+    const request = await fetch(`${BASE_URL}/api/routines/${routineId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(routineObj)
+    })
+    const result = await request.json();
     console.log(result);
     return result;
   } catch (error) {
