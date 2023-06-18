@@ -2,23 +2,24 @@ import React, { useState, useEffect } from "react";
 import { createRoutine } from "../../api";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import { TextField, Button, Container } from "@mui/material";
+import { TextField, Button, Container, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { create } from "@mui/material/styles/createTransitions";
 
 const CreateRoutine = (props) => {
     const [routineName, setRoutineName] = useState('');
     const [routineGoal, setRoutineGoal] = useState('');
+    const [isPublic, setIsPublic] = useState('')
     const { userToken, loggedIn, username } = props;
 
 
     async function handleSubmit(event) {
         event.preventDefault();
 
-        console.log(userToken);
+        // console.log(userToken);
         const routineObj = {
             name: routineName,
             goal: routineGoal,
-            isPublic: true
+            isPublic: isPublic
         }
 
         const createdRoutine = await createRoutine(username, userToken, routineObj);
@@ -28,7 +29,7 @@ const CreateRoutine = (props) => {
             setRoutineName('');
             setRoutineGoal('');
             window.location.reload();
-            
+
         }
     }
 
@@ -52,6 +53,16 @@ const CreateRoutine = (props) => {
                         multiline
                         required
                     />
+                    <FormControl fullWidth>
+                        <InputLabel>Is Public (optional)</InputLabel>
+                        <Select
+                            value={isPublic}
+                            onChange={(e) => setIsPublic(e.target.value)}
+                        >
+                            <MenuItem value={true}>True</MenuItem>
+                            <MenuItem value={false}>False</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Button type="submit" variant="contained" color="primary">
                         Submit
                     </Button>
