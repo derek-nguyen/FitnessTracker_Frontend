@@ -86,20 +86,24 @@ export async function fetchAllPublicRoutines() {
   }
 }
 
-export async function createRoutine(username, token, routineObj) {
+export async function createRoutine(token, name, goal, isPublic) {
   try {
     const response = await fetch(`${BASE_URL}/api/routines`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(routineObj)
-    });
 
-    const result = await response.json();
-    console.log(result);
-    return result
+      body: JSON.stringify({
+        name: name,
+        goal: goal,
+        isPublic: isPublic,
+      }),
+    });
+    const data = await response.json();
+
+    return data;
   } catch (error) {
     throw error;
   }
@@ -110,9 +114,9 @@ export async function fetchUserPublicRoutines(username, token) {
     const response = await fetch(`${BASE_URL}/api/users/${username}/routines`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -127,10 +131,10 @@ export async function editRoutine(token, routineId, routineObj) {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(routineObj)
-    })
+      body: JSON.stringify(routineObj),
+    });
     const result = await response.json();
     console.log(result);
     return result;
@@ -145,9 +149,9 @@ export async function deleteRoutine(token, routineId) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-      }
-    })
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const result = await response.json();
     console.log(result);
     return result;

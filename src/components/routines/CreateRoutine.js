@@ -1,75 +1,120 @@
-import React, { useState, useEffect } from "react";
-import { createRoutine } from "../../api";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import { TextField, Button, Container, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { create } from "@mui/material/styles/createTransitions";
+import React, { useState } from "react";
+import { fetchAllPublicRoutines, createRoutine } from "../../api";
+
+const initialRoutineData = {
+  goal: "",
+  name: "",
+  isPublic: true,
+};
 
 const CreateRoutine = (props) => {
-    const [routineName, setRoutineName] = useState('');
-    const [routineGoal, setRoutineGoal] = useState('');
-    const [isPublic, setIsPublic] = useState('')
-    const { userToken, loggedIn, username } = props;
+  const [routineData, setRoutineData] = useState(initialRoutineData);
+  const { userToken, loggedIn, username, setMyRoutines } = props;
 
+  const handleChange = (e) => {
+    const value = e.target.value.trim();
+    setRoutineData({
+      ...routineData,
+      [e.target.name]: value,
+    });
+  };
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
+    console.log(userToken);
 
-        // console.log(userToken);
-        const routineObj = {
-            name: routineName,
-            goal: routineGoal,
-            isPublic: isPublic
-        }
+    try {
+      const data = await createRoutine(
+        userToken,
+        routineData.name,
+        routineData.goal,
+        routineData.isPublic
+      );
+      if (data.error) swal(data.error);
+      else swal("Routine successfully Added");
 
-        const createdRoutine = await createRoutine(username, userToken, routineObj);
-        console.log(createdRoutine)
-
-        if (createdRoutine) {
-            setRoutineName('');
-            setRoutineGoal('');
-            window.location.reload();
-
-        }
+      //fetch new Routines from the api
+      try {
+        Promise.all([fetchAllPublicRoutines()]).then(([data]) => {
+          setMyRoutines(data);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } catch (error) {
+      console.error(error);
+      swal("Failed to Add Routine");
     }
+    /*
+    const routineObj = {
+      name: routineName,
+      goal: routineGoal,
+      isPublic: true,
+    };
 
-    return (
-        <>
-            <Container maxWidth="sm">
-                <h1>Create Routine Form</h1>
-                <form onSubmit={handleSubmit}>
-                    <TextField
-                        label="Routine Name"
-                        value={routineName}
-                        onChange={(e) => setRoutineName(e.target.value)}
-                        fullWidth
-                        required
-                    />
-                    <TextField
-                        label="Routine Goal"
-                        value={routineGoal}
-                        onChange={(e) => setRoutineGoal(e.target.value)}
-                        fullWidth
-                        multiline
-                        required
-                    />
-                    <FormControl fullWidth>
-                        <InputLabel>Is Public (optional)</InputLabel>
-                        <Select
-                            value={isPublic}
-                            onChange={(e) => setIsPublic(e.target.value)}
-                        >
-                            <MenuItem value={true}>True</MenuItem>
-                            <MenuItem value={false}>False</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <Button type="submit" variant="contained" color="primary">
-                        Submit
-                    </Button>
-                </form>
-            </Container>
-        </>
+    const createdRoutine = await createRoutine(username, userToken, routineObj);
+    console.log(createdRoutine);
+
+    if (createdRoutine) {
+      setRoutineName("");
+      setRoutineGoal("");
+    }
+*/
+  }
+  return (
+    loggedIn && (
+      <div>
+        <h2>Add New Routine</h2>
+        <form>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="goal"
+            placeholder="Goal"
+            onChange={handleChange}
+          />
+
+          <div>
+            <button onClick={handleSubmit}>Submit</button>
+          </div>
+        </form>
+      </div>
     )
+  );
+  /*
+  return (
+    <>
+      <Container maxWidth="sm">
+        <h1>Create Routine Form</h1>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Routine Name"
+            value={routineName}
+            onChange={(e) => setRoutineName(e.target.value)}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Routine Goal"
+            value={routineGoal}
+            onChange={(e) => setRoutineGoal(e.target.value)}
+            fullWidth
+            multiline
+            required
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Submit
+          </Button>
+        </form>
+      </Container>
+    </>
+  );
+  */
 };
 
 export default CreateRoutine;

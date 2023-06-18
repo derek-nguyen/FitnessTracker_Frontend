@@ -4,9 +4,9 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import ActivityItem from "../activities/ActivityItem"
+import ActivityItem from "../activities/ActivityItem";
 
-const ViewRoutines = () => {
+const ViewRoutines = (props) => {
   const [routines, setRoutines] = useState([]);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const ViewRoutines = () => {
                       <br />
                       <h3>Routine Activities</h3>
                       {routine.activities.map((activity, idx) => (
-                        <ActivityItem activity={activity} idx={idx}/>
+                        <ActivityItem activity={activity} idx={idx} />
                       ))}
                     </div>
                   ) : null}

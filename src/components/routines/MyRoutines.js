@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { fetchUserPublicRoutines } from "../../api";
+import { fetchAllPublicRoutines } from "../../api";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
-} from "@mui/material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 
-import CreateRoutine from "./CreateRoutine"
+import CreateRoutine from "./CreateRoutine";
 import EditRoutine from "./EditRoutine";
 import DeleteRoutine from "./DeleteRoutine";
 
@@ -17,8 +13,8 @@ const MyRoutines = (props) => {
 
   useEffect(() => {
     try {
-      Promise.all([fetchUserPublicRoutines(username, userToken)]).then(([data]) => {
-        // console.log(data);
+      Promise.all([fetchAllPublicRoutines()]).then(([data]) => {
+        console.log(data);
         setMyRoutines(data);
       });
     } catch (error) {
@@ -28,12 +24,33 @@ const MyRoutines = (props) => {
 
   // console.log(myRoutines)
 
+  const routineFilter = (routine) => {
+    const creatorName = routine.creatorName.toLowerCase();
+
+    if (creatorName === username) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filteredRoutines = myRoutines.filter((routine) =>
+    routineFilter(routine)
+  );
+
   return (
     <>
-      <CreateRoutine userToken={userToken} />
+      <div className="routine-button-container">
+        <CreateRoutine
+          loggedIn={loggedIn}
+          userToken={userToken}
+          setMyRoutines={setMyRoutines}
+          myRutines={myRoutines}
+        />
+      </div>
       <div className="view">
         <h1>My Routines</h1>
-        {myRoutines.map((routine, index) => {
+        {filteredRoutines.map((routine, index) => {
           return (
             <Accordion key={routine.id}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -45,7 +62,10 @@ const MyRoutines = (props) => {
                   <div>isPublic: {routine.isPublic.toString()}</div>
                   <div className="routine-button-container">
                     <EditRoutine routineId={routine.id} userToken={userToken} />
-                    <DeleteRoutine routineId={routine.id} userToken={userToken}/>
+                    <DeleteRoutine
+                      routineId={routine.id}
+                      userToken={userToken}
+                    />
                   </div>
                   {routine.activities.length > 0 ? (
                     <div>
@@ -78,7 +98,7 @@ const MyRoutines = (props) => {
         })}
       </div>
     </>
-  )
+  );
 };
 
 export default MyRoutines;
