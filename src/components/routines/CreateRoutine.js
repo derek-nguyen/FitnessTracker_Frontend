@@ -11,11 +11,18 @@ const CreateRoutine = (props) => {
   const [routineData, setRoutineData] = useState(initialRoutineData);
   const { userToken, loggedIn, username, setMyRoutines } = props;
 
+  // const handleChange = (e) => {
+  //   const value = e.target.value.trim();
+  //   setRoutineData({
+  //     ...routineData,
+  //     [e.target.name]: value,
+  //   });
+  // };
+
   const handleChange = (e) => {
-    const value = e.target.value.trim();
     setRoutineData({
       ...routineData,
-      [e.target.name]: value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -26,8 +33,8 @@ const CreateRoutine = (props) => {
     try {
       const data = await createRoutine(
         userToken,
-        routineData.name,
-        routineData.goal,
+        routineData.name.trim(),
+        routineData.goal.trim(),
         routineData.isPublic
       );
       if (data.error) swal(data.error);
