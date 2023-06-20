@@ -45,7 +45,7 @@ const MyRoutines = (props) => {
           loggedIn={loggedIn}
           userToken={userToken}
           setMyRoutines={setMyRoutines}
-          myRutines={myRoutines}
+          myRoutines={myRoutines}
         />
       </div>
       <div className="view">
@@ -62,7 +62,10 @@ const MyRoutines = (props) => {
                   <div>isPublic: {routine.isPublic.toString()}</div>
                   <div className="routine-button-container">
                     <EditRoutine routineId={routine.id} userToken={userToken} />
-                    <CreateRoutineActivity routineId={routine.id} setMyRoutines={setMyRoutines}/>
+                    <CreateRoutineActivity
+                      routineId={routine.id}
+                      setMyRoutines={setMyRoutines}
+                    />
                     <DeleteRoutine
                       routineId={routine.id}
                       userToken={userToken}
@@ -73,7 +76,11 @@ const MyRoutines = (props) => {
                       <br />
                       <h3>Routine Activities</h3>
                       {routine.activities.map((activity, idx) => (
-                        <MyActivityItem activity={activity} idx={idx} routineId={routine.id} />
+                        <MyActivityItem
+                          activity={activity}
+                          idx={idx}
+                          routineId={routine.id}
+                        />
                       ))}
                     </div>
                   ) : null}

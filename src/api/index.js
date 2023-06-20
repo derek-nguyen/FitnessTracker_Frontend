@@ -55,6 +55,27 @@ export async function fetchAllActivities() {
   }
 }
 
+export async function createActivitiy(name, description, token) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        description: description,
+      }),
+    });
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchAllRoutines() {
   try {
     const res = await fetch(`${BASE_URL}/api/routines`, {
@@ -162,13 +183,16 @@ export async function deleteRoutine(token, routineId) {
 
 export async function addRoutineActivity(routineId, activityObj) {
   try {
-    const response = await fetch(`${BASE_URL}/api/routines/${routineId}/activities`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(activityObj)
-    });
+    const response = await fetch(
+      `${BASE_URL}/api/routines/${routineId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(activityObj),
+      }
+    );
     const result = await response.json();
     console.log(result);
     return result;
