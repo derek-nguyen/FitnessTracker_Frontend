@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { fetchAllPublicRoutines } from "../../api";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-
 import CreateRoutine from "./CreateRoutine";
 import EditRoutine from "./EditRoutine";
 import DeleteRoutine from "./DeleteRoutine";
+import ActivityItem from "../activities/ActivityItem";
 
 const MyRoutines = (props) => {
   const [myRoutines, setMyRoutines] = useState([]);
@@ -68,25 +68,10 @@ const MyRoutines = (props) => {
                   </div>
                   {routine.activities.length > 0 ? (
                     <div>
-                      <div>Activities</div>
+                      <br />
+                      <h3>Routine Activities</h3>
                       {routine.activities.map((activity, idx) => (
-                        <>
-                          <div>
-                            <span>{idx + 1}: </span>
-                            {activity.name}
-                          </div>
-                          <div></div>
-                          <ul>
-                            <li>
-                              <span>Duration: </span>
-                              {activity.duration}
-                            </li>
-                            <li>
-                              <span>count: </span>
-                              {activity.count}
-                            </li>
-                          </ul>
-                        </>
+                        <ActivityItem activity={activity} idx={idx} />
                       ))}
                     </div>
                   ) : null}
