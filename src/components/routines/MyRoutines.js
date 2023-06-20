@@ -62,7 +62,7 @@ const MyRoutines = (props) => {
                   <div>isPublic: {routine.isPublic.toString()}</div>
                   <div className="routine-button-container">
                     <EditRoutine routineId={routine.id} userToken={userToken} />
-                    <CreateRoutineActivity routineId={routine.id} />
+                    <CreateRoutineActivity routineId={routine.id} setMyRoutines={setMyRoutines}/>
                     <DeleteRoutine
                       routineId={routine.id}
                       userToken={userToken}

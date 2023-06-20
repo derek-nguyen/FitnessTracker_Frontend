@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Box, Container, TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material"
-import { addRoutineActivity, fetchAllActivities } from '../../api'
+import { addRoutineActivity, fetchAllActivities, fetchAllRoutines } from '../../api'
 import swal from "sweetalert";
 
 const CreateRoutineActivity = (props) => {
-    const { routineId } = props;
+    const { routineId, setMyRoutines } = props;
 
     const [count, setCount] = useState(1);
     const [duration, setDuration] = useState(1);
@@ -14,8 +14,6 @@ const CreateRoutineActivity = (props) => {
     const handleClose = () => setOpen(false);
 
     const [activities, setActivities] = useState([]);
-
-
 
     useEffect(() => {
         try {
@@ -55,8 +53,14 @@ const CreateRoutineActivity = (props) => {
 
             if (createdRoutineActivity) {
                 swal('Activity successfully added');
-                window.location.reload();
-                // handleClose();
+                
+                try {
+                    const routines = await fetchAllRoutines();
+                    setMyRoutines(routines)
+                    handleClose();
+                } catch (error) {
+                    throw error
+                }
             }
 
         } catch (error) {
