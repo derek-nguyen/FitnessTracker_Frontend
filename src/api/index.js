@@ -159,3 +159,20 @@ export async function deleteRoutine(token, routineId) {
     throw error;
   }
 }
+
+export async function addRoutineActivity(routineId, activityObj) {
+  try {
+    const response = await fetch(`${BASE_URL}/api/routines/${routineId}/activities`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(activityObj)
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}

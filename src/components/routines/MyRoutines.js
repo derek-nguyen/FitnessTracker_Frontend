@@ -5,7 +5,8 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import CreateRoutine from "./CreateRoutine";
 import EditRoutine from "./EditRoutine";
 import DeleteRoutine from "./DeleteRoutine";
-import ActivityItem from "../activities/ActivityItem";
+import MyActivityItem from "../activities/MyActivityItem";
+import CreateRoutineActivity from "./CreateRoutineActivity";
 
 const MyRoutines = (props) => {
   const [myRoutines, setMyRoutines] = useState([]);
@@ -61,6 +62,7 @@ const MyRoutines = (props) => {
                   <div>isPublic: {routine.isPublic.toString()}</div>
                   <div className="routine-button-container">
                     <EditRoutine routineId={routine.id} userToken={userToken} />
+                    <CreateRoutineActivity routineId={routine.id} />
                     <DeleteRoutine
                       routineId={routine.id}
                       userToken={userToken}
@@ -71,7 +73,7 @@ const MyRoutines = (props) => {
                       <br />
                       <h3>Routine Activities</h3>
                       {routine.activities.map((activity, idx) => (
-                        <ActivityItem activity={activity} idx={idx} />
+                        <MyActivityItem activity={activity} idx={idx} routineId={routine.id} />
                       ))}
                     </div>
                   ) : null}
